@@ -13,9 +13,8 @@ os.chdir(os.path.dirname(os.path.realpath(__file__)))
 try:
     launcher.check_installation()
     launcher.cleanup_session()
-#     launcher.load_bbio_file('cramps2_cape.bbio')
-    launcher.start_process("configserver -d -n MendelMax ~/proj/remote-ui/Machineface")
-    launcher.start_process('linuxcnc CRAMPS_SIM.ini')
+    launcher.start_process("configserver -d -n MendelMax ~/proj/remote-ui/Machineface ~/proj/remote-ui/Cetus")
+    # launcher.start_process('linuxcnc CRAMPS_SIM.ini')
     while True:
         launcher.check_processes()
         time.sleep(1)
