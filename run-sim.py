@@ -14,7 +14,7 @@ try:
     launcher.check_installation()
     launcher.cleanup_session()
     launcher.start_process("configserver -d -n MendelMax ~/proj/remote-ui/Machineface ~/proj/remote-ui/Cetus")
-    # launcher.start_process('linuxcnc CRAMPS_SIM.ini')
+    launcher.start_process('linuxcnc CRAMPS_SIM.ini')
     while True:
         launcher.check_processes()
         time.sleep(1)
