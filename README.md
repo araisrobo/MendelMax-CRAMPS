@@ -7,7 +7,3 @@ Origin from [MendelMax-CRAMPS](https://github.com/strahlex/MendelMax-CRAMPS/)
 * F1-key: ESTOP ON/OFF
 * F2-key: Machine ON/OFF
 * Click HOME-ALL, and you may try MDI commands
-
-### Authors
-Alexander Rössler (@strahlex)   
-Yishin Li (@yishinli)
