@@ -18,17 +18,23 @@ motion.setup_motion(kinematics=c.find('KINS','KINEMATICS'))
 # reading functions
 hal.addf('motion-command-handler', 'servo-thread')
 
+# define gantry joints
+base.init_gantry(axisIndex=1, joints=2, latching=True)
+
 # Axis-of-motion Specific Configs (not the GUI)
 # X [0] Axis
 base.setup_stepper(section='AXIS_0', axisIndex=0, stepgenIndex=0, stepgenType='sim')
 # Y [1] Axis
-base.setup_stepper(section='AXIS_1', axisIndex=1, stepgenIndex=1, stepgenType='sim')
+base.setup_stepper(section='AXIS_1', axisIndex=1, stepgenIndex=1, gantry=True, gantryJoint=0, stepgenType='sim')
 # Z [2] Axis
-base.setup_stepper(section='AXIS_2', axisIndex=2, stepgenIndex=2, stepgenType='sim')
+base.setup_stepper(section='AXIS_1', axisIndex=1, stepgenIndex=2, gantry=True, gantryJoint=1, stepgenType='sim')
 # Z [2] Axis
-base.setup_stepper(section='AXIS_3', axisIndex=3, stepgenIndex=3, stepgenType='sim')
+base.setup_stepper(section='AXIS_2', axisIndex=2, stepgenIndex=3, stepgenType='sim')
 # Z [2] Axis
-base.setup_stepper(section='AXIS_4', axisIndex=4, stepgenIndex=4, stepgenType='sim')
+base.setup_stepper(section='AXIS_3', axisIndex=3, stepgenIndex=4, stepgenType='sim')
+
+# update gantry position feedback
+base.gantry_read(gantryAxis=1, thread='servo-thread')
 
 # Standard I/O - EStop, Enables, Limit Switches, Etc
 errorSignals = ['temp-hw-error', 'watchdog-error', 'hbp-error']
@@ -37,6 +43,7 @@ base.setup_tool_loopback()
 
 # write out functions
 hal.addf('motion-controller', 'servo-thread')
+base.gantry_write(gantryAxis=1, thread='servo-thread')
 
 # start haltalk server after everything is initialized
 # else binding the remote components on the UI might fail

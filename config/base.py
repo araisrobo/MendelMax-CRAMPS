@@ -80,28 +80,35 @@ def setup_stepper(stepgenIndex, section, axisIndex=None,
         if hasMotionAxis:  # per axis fb and cmd
             posCmd = hal.newsig('emcmot-%i-pos-cmd' % axisIndex, hal.HAL_FLOAT)
             posCmd.link('%s.motor-pos-cmd' % axis)
-#             if not gantry:
+            if hasStepgen:
+                if not gantry:
+                    posCmd.link('%s.position-cmd' % stepgen)
+                else:
+                    posCmd.link('gantry.%i.position-cmd' % axisIndex)
+            else:
+                posCmd.link('%s.motor-pos-fb' % axis)
+
+
+            if hasStepgen:
+                posFb = hal.newsig('emcmot-%i-pos-fb' % axisIndex, hal.HAL_FLOAT)
+                posFb.link('%s.motor-pos-fb' % axis)
+                if not gantry:
+                    posFb.link('%s.position-fb' % stepgen)
+                else:
+                    posFb.link('gantry.%i.position-fb' % axisIndex)
+
+
+        if gantry:  # per joint fb and cmd
+            posCmd = hal.newsig('emcmot-%i-%i-pos-cmd' % (axisIndex, gantryJoint), hal.HAL_FLOAT)
+            posCmd.link('gantry.%i.joint.%02i.pos-cmd' % (axisIndex, gantryJoint))
             if hasStepgen:
                 posCmd.link('%s.position-cmd' % stepgen)
-#             else:
-#                 posCmd.link('gantry.%i.position-cmd' % axisIndex)
-
-            posFb = hal.newsig('emcmot-%i-pos-fb' % axisIndex, hal.HAL_FLOAT)
-            posFb.link('%s.motor-pos-fb' % axis)
-#             if not gantry:
+ 
+            posFb = hal.newsig('emcmot-%i-%i-pos-fb' % (axisIndex, gantryJoint), hal.HAL_FLOAT)
+            posFb.link('gantry.%i.joint.%02i.pos-fb' % (axisIndex, gantryJoint))
             if hasStepgen:
                 posFb.link('%s.position-fb' % stepgen)
-#             else:
-#                 posFb.link('gantry.%i.position-fb' % axisIndex)
 
-#         if gantry:  # per joint fb and cmd
-#             posCmd = hal.newsig('emcmot-%i-%i-pos-cmd' % (axisIndex, gantryJoint), hal.HAL_FLOAT)
-#             posCmd.link('gantry.%i.joint.%02i.pos-cmd' % (axisIndex, gantryJoint))
-#             posCmd.link('%s.position-cmd' % stepgen)
-# 
-#             posFb = hal.newsig('emcmot-%i-%i-pos-fb' % (axisIndex, gantryJoint), hal.HAL_FLOAT)
-#             posFb.link('%s.position-fb' % stepgen)
-#             posFb.link('gantry.%i.joint.%02i.pos-fb' % (axisIndex, gantryJoint))
     else:  # velocity control
         print "ERROR: not support velocity control yet"
 #         hal.net(velocitySignal, '%s.velocity-cmd' % stepgen)
