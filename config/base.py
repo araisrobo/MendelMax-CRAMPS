@@ -229,6 +229,16 @@ def setup_estop_loopback():
     # create signal for estop loopback
     hal.net('iocontrol.0.user-enable-out', 'iocontrol.0.emc-enable-in')
 
+def setup_extras():
+    name = 'extras'
+    comp = hal.RemoteComponent(name, timer=100)
+    comp.newpin('gpio.in.0', hal.HAL_BIT, hal.HAL_IN)
+    comp.newpin('gpio.in.1', hal.HAL_BIT, hal.HAL_IN)
+    comp.newpin('gpio.in.2', hal.HAL_BIT, hal.HAL_IN)
+    comp.ready()
+
+    # comp.pin('offset-left').link('home-offset-%i-0' % axisIndex)
+    # comp.pin('offset-right').link('home-offset-%i-1' % axisIndex)
 
 def init_gantry(axisIndex, joints=2, latching=True):
     if latching:

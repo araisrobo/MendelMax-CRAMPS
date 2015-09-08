@@ -41,6 +41,9 @@ errorSignals = ['temp-hw-error', 'watchdog-error', 'hbp-error']
 base.setup_estop(errorSignals, thread='servo-thread')
 base.setup_tool_loopback()
 
+# testing
+base.setup_extras()
+
 # write out functions
 hal.addf('motion-controller', 'servo-thread')
 base.gantry_write(gantryAxis=1, thread='servo-thread')
