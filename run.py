@@ -7,7 +7,7 @@ import time
 from machinekit import launcher
 
 launcher.register_exit_handler()
-launcher.set_debug_level(5)
+launcher.set_debug_level(3)
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 try:
@@ -18,6 +18,7 @@ try:
     while True:
         launcher.check_processes()
         time.sleep(1)
+
 except subprocess.CalledProcessError:
     launcher.end_session()
     sys.exit(1)

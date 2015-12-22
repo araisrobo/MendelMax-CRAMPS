@@ -7,3 +7,21 @@ Origin from [MendelMax-CRAMPS](https://github.com/strahlex/MendelMax-CRAMPS/)
 * F1-key: ESTOP ON/OFF
 * F2-key: Machine ON/OFF
 * Click HOME-ALL, and you may try MDI commands
+
+### Start QQVSim at boot
+sudo gpasswd -a pi systemd-journal # Adding user pi to group systemd-journal
+sudo reboot
+
+* sudo cp etc/systemd/system/*service /etc/systemd/system/
+  * qqvsim.service: Starts Mklauncher for QQVSim
+  * qqvsim-run.service: Starts QQVSim
+* sudo systemctl daemon-reload
+* sudo systemctl start  qqvsim.service
+* sudo systemctl start  qqvsim-run.service
+* sudo systemctl status qqvsim.service
+* sudo systemctl status qqvsim-run.service
+* sudo systemctl stop   qqvsim.service
+* sudo systemctl stop   qqvsim-run.service
+* sudo systemctl enable qqvsim.service
+* sudo systemctl enable qqvsim-run.service
+
