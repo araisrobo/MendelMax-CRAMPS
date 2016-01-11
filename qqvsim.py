@@ -22,16 +22,18 @@ hal.addf('motion-command-handler', 'servo-thread')
 base.init_gantry(axisIndex=1, joints=2, latching=True)
 
 # Axis-of-motion Specific Configs (not the GUI)
-# X [0] Axis
+# X [J0] Axis
 base.setup_stepper(section='AXIS_0', axisIndex=0, stepgenIndex=0, stepgenType='sim')
-# Y [1] Axis
+# Y [J1] Axis
 base.setup_stepper(section='AXIS_1', axisIndex=1, stepgenIndex=1, gantry=True, gantryJoint=0, stepgenType='sim')
-# Z [2] Axis
+# YY[J2] Axis
 base.setup_stepper(section='AXIS_1', axisIndex=1, stepgenIndex=2, gantry=True, gantryJoint=1, stepgenType='sim')
-# Z [2] Axis
+# Z [J3] Axis
 base.setup_stepper(section='AXIS_2', axisIndex=2, stepgenIndex=3, stepgenType='sim')
-# Z [2] Axis
+# A [J4] Axis
 base.setup_stepper(section='AXIS_3', axisIndex=3, stepgenIndex=4, stepgenType='sim')
+# B [J5] Axis
+base.setup_stepper(section='AXIS_4', axisIndex=4, stepgenIndex=5, stepgenType='sim')
 
 # update gantry position feedback
 base.gantry_read(gantryAxis=1, thread='servo-thread')
